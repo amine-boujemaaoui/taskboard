@@ -1,0 +1,68 @@
+<div class="p-6 max-w-3xl mx-auto space-y-6">
+  <h1 class="text-2xl font-bold">Tasks</h1>
+
+  <!-- Formulaire -->
+  <form
+    class="border rounded p-4 space-y-3"
+    (ngSubmit)="createTask()"
+  >
+    <input
+      class="w-full border rounded px-3 py-2"
+      placeholder="Titre"
+      [(ngModel)]="title"
+      name="title"
+      required
+    />
+
+    <textarea
+      class="w-full border rounded px-3 py-2"
+      placeholder="Description"
+      [(ngModel)]="description"
+      name="description"
+    ></textarea>
+
+    <div class="flex gap-2">
+      <select
+        class="border rounded px-3 py-2"
+        [(ngModel)]="status"
+        name="status"
+      >
+        <option value="TODO">TODO</option>
+        <option value="DOING">DOING</option>
+        <option value="DONE">DONE</option>
+      </select>
+
+      <select
+        class="border rounded px-3 py-2"
+        [(ngModel)]="priority"
+        name="priority"
+      >
+        <option value="LOW">LOW</option>
+        <option value="MEDIUM">MEDIUM</option>
+        <option value="HIGH">HIGH</option>
+      </select>
+    </div>
+
+    <button
+      type="submit"
+      class="bg-blue-600 text-white px-4 py-2 rounded"
+    >
+      Ajouter
+    </button>
+  </form>
+
+  <!-- Liste -->
+  <p *ngIf="loading">Chargement...</p>
+
+  <ul class="space-y-2" *ngIf="!loading">
+    <li *ngFor="let t of tasks" class="border rounded p-3">
+      <div class="font-semibold">{{ t.title }}</div>
+      <div class="text-sm opacity-80">
+        {{ t.status }} • {{ t.priority }}
+      </div>
+      <div class="text-sm mt-1" *ngIf="t.description">
+        {{ t.description }}
+      </div>
+    </li>
+  </ul>
+</div>
