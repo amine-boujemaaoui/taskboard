@@ -11,6 +11,7 @@ Le projet est construit étape par étape, chaque étape faisant l'objet d'une p
 | Backend | Java 21, Spring Boot 4 (Web MVC, Data JPA, Validation), Maven |
 | Base de données | PostgreSQL 16, migrations Flyway |
 | Frontend | Angular 21 (composants standalone), Tailwind CSS, Vitest |
+| Tests | JUnit 5, AssertJ, MockMvc, Testcontainers |
 | Infrastructure | Docker Compose |
 
 ## Structure du dépôt
@@ -63,9 +64,11 @@ L'application est disponible sur `http://localhost:4200`.
 ### Lancer les tests
 
 ```bash
-cd backend && ./mvnw test      # la base de données doit être démarrée
+cd backend && ./mvnw test
 cd frontend && npm test -- --watch=false
 ```
+
+Les tests du backend n'utilisent pas la base de développement : grâce à [Testcontainers](https://testcontainers.com/), ils démarrent leur propre PostgreSQL 16 dans un conteneur Docker jetable, supprimé à la fin. Docker Desktop doit simplement être lancé.
 
 ## API
 
@@ -80,7 +83,7 @@ cd frontend && npm test -- --watch=false
 
 **Phase 0 : fondations**
 - [x] 0.1 Passage en Java 21, README, licence
-- [ ] 0.2 Tests d'intégration avec Testcontainers
+- [x] 0.2 Tests d'intégration avec Testcontainers
 - [ ] 0.3 Intégration continue avec GitHub Actions
 
 **Phase 1 : assainir le backend**
